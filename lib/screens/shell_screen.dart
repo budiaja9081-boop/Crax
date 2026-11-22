@@ -44,13 +44,16 @@ class _ShellScreenState extends State<ShellScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    final bottomPad = MediaQuery.of(context).padding.bottom;
+
     return AppBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             'CRAX',
-            style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 4),
+            style: t.titleLarge?.copyWith(letterSpacing: 8, fontSize: 22),
           ),
           actions: [
             PopupMenuButton<String>(
@@ -92,12 +95,16 @@ class _ShellScreenState extends State<ShellScreen> {
               ),
             ),
             Positioned(
-              left: 16,
-              right: 16,
-              bottom: 14,
+              left: 18,
+              right: 18,
+              bottom: 12 + bottomPad,
               child: LiquidNav(
-                icons: const [Icons.grid_view_rounded, Icons.folder_outlined, Icons.code_rounded],
-                labels: const ['Tools', 'Files', 'Codex'],
+                icons: const [
+                  Icons.grid_view_rounded,
+                  Icons.folder_outlined,
+                  Icons.code_rounded,
+                ],
+                labels: const ['TOOLS', 'FILES', 'CODEX'],
                 index: _tab,
                 onTap: (i) => setState(() => _tab = i),
               ),

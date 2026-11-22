@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Laxx {
-  static const bg = Color(0xFF0B0E14);
-  static const surface = Color(0xFF141A24);
-  static const surfaceHi = Color(0xFF1C2431);
-  static const border = Color(0xFF2A3446);
-  static const accent = Color(0xFF00E0C6);
-  static const accent2 = Color(0xFF7C5CFF);
+  static const bg = Color(0xFF07090F);
+  static const surface = Color(0xFF111724);
+  static const surfaceHi = Color(0xFF1A2233);
+  static const border = Color(0xFF26314A);
+  static const accent = Color(0xFF00F0D0);
+  static const accent2 = Color(0xFF8B5CFF);
   static const danger = Color(0xFFFF4D6D);
   static const warn = Color(0xFFFFB84D);
   static const ok = Color(0xFF3DDC84);
-  static const text = Color(0xFFE6EDF7);
-  static const muted = Color(0xFF8A96AB);
+  static const text = Color(0xFFEAF0FA);
+  static const muted = Color(0xFF8C97AD);
+
+  static TextTheme get _text => TextTheme(
+        headlineMedium: GoogleFonts.sairaStencilOne(
+            fontSize: 30, color: text, letterSpacing: 3),
+        titleLarge: GoogleFonts.sairaStencilOne(
+            fontSize: 20, color: text, letterSpacing: 1.5),
+        titleMedium: GoogleFonts.sairaStencilOne(
+            fontSize: 16, color: text, letterSpacing: 1),
+        labelLarge: GoogleFonts.sairaStencilOne(
+            fontSize: 15, color: text, letterSpacing: 1),
+        bodyMedium: GoogleFonts.rajdhani(
+            fontSize: 16, height: 1.3, color: text, fontWeight: FontWeight.w600),
+        bodySmall: GoogleFonts.rajdhani(
+            fontSize: 13, color: muted, fontWeight: FontWeight.w500),
+      );
 
   static ThemeData get theme => ThemeData(
         useMaterial3: true,
@@ -25,22 +41,20 @@ class Laxx {
           surface: surface,
           error: danger,
         ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: bg,
+        textTheme: _text,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.transparent,
           foregroundColor: text,
           elevation: 0,
-        ),
-        textTheme: const TextTheme(
-          headlineMedium: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: text),
-          titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: text),
-          bodyMedium: TextStyle(fontSize: 14, color: text),
-          bodySmall: TextStyle(fontSize: 12, color: muted),
+          titleTextStyle: GoogleFonts.sairaStencilOne(
+              fontSize: 20, color: text, letterSpacing: 1.5),
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: surface,
-          hintStyle: const TextStyle(color: muted),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          hintStyle: GoogleFonts.rajdhani(color: muted, fontSize: 15),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
             borderSide: const BorderSide(color: border),
