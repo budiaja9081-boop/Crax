@@ -11,7 +11,7 @@ class PreviewServer {
     _root = p.normalize(rootPath);
     for (var port = 8080; port < 8090; port++) {
       try {
-        _server = await HttpServer.bind(InternalAddress.loopback, port);
+        _server = await HttpServer.bind(InternetAddress.loopback, port);
         _server!.listen(_handle);
         return port;
       } catch (_) {}
