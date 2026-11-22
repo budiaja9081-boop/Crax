@@ -4,6 +4,7 @@ import '../widgets/glass_card.dart';
 import 'osint_screens.dart';
 import 'payload_screen.dart';
 import 'qr_screen.dart';
+import 'recon_screens.dart';
 
 class ToolsScreen extends StatelessWidget {
   const ToolsScreen({super.key});
@@ -21,12 +22,16 @@ class ToolsScreen extends StatelessWidget {
           Laxx.warn, () => const QrScreen()),
       _ToolItem('Payload Library', 'Payload latihan XSS, SQLi, dll',
           Icons.bug_report_outlined, Laxx.danger, () => const PayloadScreen()),
-      _ToolItem('Crax Scan', 'Segera hadir', Icons.radar, Laxx.muted, null),
-      _ToolItem('Subdomain', 'Segera hadir', Icons.account_tree_outlined,
-          Laxx.muted, null),
-      _ToolItem('XSS Detector', 'Segera hadir', Icons.code_off, Laxx.muted, null),
-      _ToolItem('Crawler', 'Segera hadir', Icons.travel_explore, Laxx.muted, null),
-      _ToolItem('WiFi Info', 'Segera hadir', Icons.wifi, Laxx.muted, null),
+      _ToolItem('Crax Scan', 'Header, path, CORS, SQLi', Icons.radar,
+          Laxx.danger, () => const CraxScanScreen()),
+      _ToolItem('Subdomain', 'Enum + status code', Icons.account_tree_outlined,
+          Laxx.accent2, () => const SubdomainScreen()),
+      _ToolItem('XSS Detector', 'Refleksi input tanpa encoding', Icons.code_off,
+          Laxx.danger, () => const XssScreen()),
+      _ToolItem('Crawler', 'Halaman, form, parameter', Icons.travel_explore,
+          Laxx.accent, () => const CrawlerScreen()),
+      _ToolItem('WiFi Info', 'Analisis konfigurasi WiFi', Icons.wifi,
+          Laxx.ok, () => const WifiScreen()),
     ];
 
     return GridView.count(
