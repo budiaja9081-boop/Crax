@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../services/session.dart';
 import '../theme/laxx_theme.dart';
 import '../widgets/app_background.dart';
-import '../widgets/liquid_nav.dart';
+import '../widgets/round_nav.dart';
 import 'codex_screen.dart';
 import 'files_screen.dart';
+import 'home_tab.dart';
 import 'profile_screen.dart';
 import 'tools_screen.dart';
 
@@ -44,43 +45,35 @@ class _ShellScreenState extends State<ShellScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final bottomPad = MediaQuery.of(context).padding.bottom;
-
     return AppBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text(
             'CRAX',
-            style: t.titleLarge?.copyWith(letterSpacing: 8, fontSize: 22),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(letterSpacing: 8, fontSize: 22),
           ),
           actions: [
             PopupMenuButton<String>(
               icon: const Icon(Icons.more_vert),
               color: Laxx.surfaceHi,
               onSelected: _menu,
-              itemBuilder: (_) => <PopupMenuEntry<String>>[
-                const PopupMenuItem(
+              itemBuilder: (_) => const <PopupMenuEntry<String>>[
+                PopupMenuItem(
                   value: 'profile',
-                  child: ListTile(
-                    leading: Icon(Icons.edit_outlined),
-                    title: Text('Edit profil'),
-                  ),
+                  child: ListTile(leading: Icon(Icons.edit_outlined), title: Text('Edit profil')),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'wall',
-                  child: ListTile(
-                    leading: Icon(Icons.wallpaper),
-                    title: Text('Ganti wallpaper'),
-                  ),
+                  child: ListTile(leading: Icon(Icons.wallpaper), title: Text('Ganti wallpaper')),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'logout',
-                  child: ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Keluar'),
-                  ),
+                  child: ListTile(leading: Icon(Icons.logout), title: Text('Keluar')),
                 ),
               ],
             ),
@@ -91,20 +84,26 @@ class _ShellScreenState extends State<ShellScreen> {
             Positioned.fill(
               child: IndexedStack(
                 index: _tab,
-                children: const [ToolsScreen(), FilesScreen(), CodexScreen()],
+                children: [
+                  HomeTab(session: widget.session, user: widget.user),
+                  const ToolsScreen(),
+                  const FilesScreen(),
+                  const CodexScreen(),
+                ],
               ),
             ),
             Positioned(
-              left: 18,
-              right: 18,
-              bottom: 12 + bottomPad,
-              child: LiquidNav(
+              left: 24,
+              right: 24,
+              bottom: 14 + bottomPad,
+              child: RoundNav(
                 icons: const [
+                  Icons.dashboard_rounded,
                   Icons.grid_view_rounded,
                   Icons.folder_outlined,
                   Icons.code_rounded,
                 ],
-                labels: const ['TOOLS', 'FILES', 'CODEX'],
+                labels: const ['Home', 'Tools', 'Files', 'Codex'],
                 index: _tab,
                 onTap: (i) => setState(() => _tab = i),
               ),

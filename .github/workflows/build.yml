@@ -26,11 +26,13 @@ jobs:
       - name: Set minSdk 21
         run: sed -i -E 's/minSdk(Version)? *=? *[^ ]+/minSdk = 21/' android/app/build.gradle* || true
 
-      - name: Disable R8 minify
+      - name: Disable R8 and keep ML Kit
         run: |
+          mkdir -p android/app
+          printf '%s\n' '-keep class com.google.mlkit.** { *; }' '-keep class com.google.android.gms.** { *; }' '-dontwarn com.google.mlkit.**' '-dontwarn com.google.android.gms.**' > android/app/proguard-rules.pro
           for f in android/app/build.gradle android/app/build.gradle.kts; do
             [ -f "$f" ] || continue
-            sed -i -E 's/minifyEnabled +true/minifyEnabled false/; s/shrinkResources +true/shrinkResources false/; s/isMinifyEnabled *= *true/isMinifyEnabled = false/; s/isShrinkResources *= *true/isShrinkResources = false/' "$f"
+            sed -i -E 's/isMinifyEnabled *= *true/isMinifyEnabled = false/; s/minifyEnabled +true/minifyEnabled false/; s/isShrinkResources *= *true/isShrinkResources = false/; s/shrinkResources +true/shrinkResources false/' "$f"
           done
 
       - name: Install dependencies
